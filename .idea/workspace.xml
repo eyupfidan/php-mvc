@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6485ca25-0bb6-4b13-b84e-c218647fe13d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Views/posts/create.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Views/posts/edit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Views/posts/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Views/posts/show.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Middleware/AuthMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Middleware/AuthMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Middleware/CsrfMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Middleware/CsrfMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Middleware/GuestMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Middleware/GuestMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Controllers/PostController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +105,7 @@
       <updated>1767786414121</updated>
       <workItem from="1767786415165" duration="6663000" />
       <workItem from="1767807634570" duration="1856000" />
-      <workItem from="1767813092506" duration="5474000" />
+      <workItem from="1767813092506" duration="5710000" />
     </task>
     <servers />
   </component>
