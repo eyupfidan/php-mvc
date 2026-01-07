@@ -127,3 +127,13 @@ if (!function_exists('dd')) {
         exit;
     }
 }
+
+if (!function_exists('flash')) {
+    /**
+     * Flash mesaj kaydet
+     */
+    function flash(string $key, mixed $value): void
+    {
+        $_SESSION['_flash'][$key] = $value;
+    }
+}

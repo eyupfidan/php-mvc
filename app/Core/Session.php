@@ -18,7 +18,6 @@ class Session
         }
 
         if (session_status() === PHP_SESSION_NONE) {
-            // Güvenli session ayarları
             ini_set('session.use_strict_mode', '1');
             ini_set('session.use_only_cookies', '1');
             ini_set('session.cookie_httponly', '1');
@@ -38,7 +37,6 @@ class Session
      */
     public static function get(string $key, mixed $default = null): mixed
     {
-        self::start();
         return $_SESSION[$key] ?? $default;
     }
 
@@ -47,7 +45,6 @@ class Session
      */
     public static function set(string $key, mixed $value): void
     {
-        self::start();
         $_SESSION[$key] = $value;
     }
 
@@ -56,7 +53,6 @@ class Session
      */
     public static function has(string $key): bool
     {
-        self::start();
         return isset($_SESSION[$key]);
     }
 
@@ -65,17 +61,7 @@ class Session
      */
     public static function forget(string $key): void
     {
-        self::start();
         unset($_SESSION[$key]);
-    }
-
-    /**
-     * Tüm session'ı temizle
-     */
-    public static function flush(): void
-    {
-        self::start();
-        $_SESSION = [];
     }
 
     /**
@@ -83,7 +69,6 @@ class Session
      */
     public static function regenerate(): void
     {
-        self::start();
         session_regenerate_id(true);
     }
 
@@ -92,7 +77,6 @@ class Session
      */
     public static function destroy(): void
     {
-        self::start();
         $_SESSION = [];
 
         if (ini_get('session.use_cookies')) {
@@ -110,36 +94,5 @@ class Session
 
         session_destroy();
         self::$started = false;
-    }
-
-    /**
-     * Flash mesaj kaydet (bir sonraki request'te gösterilir)
-     */
-    public static function flash(string $key, mixed $value): void
-    {
-        self::start();
-        $_SESSION['_flash'][$key] = $value;
-    }
-
-    /**
-     * Flash mesaj al ve sil
-     */
-    public static function getFlash(string $key, mixed $default = null): mixed
-    {
-        self::start();
-        $value = $_SESSION['_flash'][$key] ?? $default;
-        unset($_SESSION['_flash'][$key]);
-        return $value;
-    }
-
-    /**
-     * Tüm flash mesajları al
-     */
-    public static function getAllFlash(): array
-    {
-        self::start();
-        $flash = $_SESSION['_flash'] ?? [];
-        unset($_SESSION['_flash']);
-        return $flash;
     }
 }
