@@ -18,6 +18,12 @@ class Session
         }
 
         if (session_status() === PHP_SESSION_NONE) {
+            // Session lifetime (dakika → saniye)
+            $lifetime = (int) ($_ENV['SESSION_LIFETIME'] ?? 120) * 60;
+
+            ini_set('session.gc_maxlifetime', (string) $lifetime);
+            session_set_cookie_params($lifetime);
+
             ini_set('session.use_strict_mode', '1');
             ini_set('session.use_only_cookies', '1');
             ini_set('session.cookie_httponly', '1');
