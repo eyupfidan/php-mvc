@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6485ca25-0bb6-4b13-b84e-c218647fe13d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Core/Auth.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Core/Validator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Views/auth/login.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Views/auth/register.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Middleware/AuthMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Middleware/AuthMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Middleware/CsrfMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Middleware/CsrfMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Middleware/GuestMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Middleware/GuestMiddleware.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +103,7 @@
       <updated>1767786414121</updated>
       <workItem from="1767786415165" duration="6663000" />
       <workItem from="1767807634570" duration="1856000" />
-      <workItem from="1767813092506" duration="5179000" />
+      <workItem from="1767813092506" duration="5474000" />
     </task>
     <servers />
   </component>
