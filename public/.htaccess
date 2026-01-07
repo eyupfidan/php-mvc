@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Gerçek dosya veya klasör varsa dokunma
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Diğer tüm istekleri index.php'ye yönlendir
+    RewriteRule ^(.*)$ index.php/$1 [L]
+
+    # index.php'ye direkt erişimi root'a yönlendir
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index\.php[?\s] [NC]
+    RewriteRule ^index\.php/?(.*)$ /$1 [R=301,L]
+</IfModule>
+
+# Güvenlik: .env ve hassas dosyalara erişimi engelle
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

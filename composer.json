@@ -1,0 +1,20 @@
+{
+  "name": "miniframework/mvc",
+  "description": "Minimal PHP 8.2 MVC Framework",
+  "type": "project",
+  "require": {
+    "php": ">=8.2",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "files": [
+      "helpers.php"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}
