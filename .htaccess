@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Zaten public içindeyse tekrar yönlendirme yapma
+RewriteCond %{REQUEST_URI} !^/public/
+
+# Root path için özel kural
+RewriteRule ^$ /public/index.php [L]
+
+# Diğer istekler için
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ /public/$1 [L]
+
+# Güvenlik
+<FilesMatch "^\.|(composer\.|schema\.sql|\.env)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+Options -Indexes
