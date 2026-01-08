@@ -4,7 +4,7 @@ PHP 8.2 + MySQL ile geliştirilmiş basit bir MVC framework.
 
 ## 🎯 Nedir?
 
-Büyük php frameworklerin yapısını ve Owasp güvenlik anlamak ve uygulamak için oluşturulmuştur.
+Büyük php frameworklerin yapısını ve Owasp güvenlik kurallarını anlamak ve uygulamak için oluşturulmuştur.
 
 ## ✨ Özellikler
 
