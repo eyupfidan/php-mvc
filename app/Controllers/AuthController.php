@@ -18,27 +18,27 @@ class AuthController extends Controller
 
     public function login(): void
     {
-        $validator = new Validator($_POST);
+        $validator = new Validator($this->request->all());
 
         if (!$validator->validate([
             'email' => 'required|email',
             'password' => 'required'
         ])) {
-            $_SESSION['_flash']['errors'] = $validator->errors();
-            $_SESSION['_old'] = $_POST;
+            $this->flash('errors', $validator->errors());
+            $this->old($this->request->all());
             $this->redirect('/login');
         }
 
-        $user = User::findBy('email', $_POST['email']);
+        $user = User::findBy('email', $this->request->post('email'));
 
-        if (!$user || !$user->verifyPassword($_POST['password'])) {
-            $_SESSION['_flash']['error'] = 'Email veya şifre hatalı.';
-            $_SESSION['_old'] = $_POST;
+        if (!$user || !$user->verifyPassword($this->request->post('password'))) {
+            $this->flash('error', 'Email veya şifre hatalı.');
+            $this->old($this->request->all());
             $this->redirect('/login');
         }
 
         Auth::login($user);
-        $_SESSION['_flash']['success'] = 'Hoş geldiniz, ' . $user->name . '!';
+        $this->flash('success', 'Hoş geldiniz, ' . $user->name . '!');
         $this->redirect('/posts');
     }
 
@@ -49,27 +49,27 @@ class AuthController extends Controller
 
     public function register(): void
     {
-        $validator = new Validator($_POST);
+        $validator = new Validator($this->request->all());
 
         if (!$validator->validate([
             'name' => 'required|min:2|max:100',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed'
         ])) {
-            $_SESSION['_flash']['errors'] = $validator->errors();
-            $_SESSION['_old'] = $_POST;
+            $this->flash('errors', $validator->errors());
+            $this->old($this->request->all());
             $this->redirect('/register');
         }
 
         $user = User::create([
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+            'name' => $this->request->post('name'),
+            'email' => $this->request->post('email'),
+            'password' => password_hash($this->request->post('password'), PASSWORD_DEFAULT),
             'role' => 'user'
         ]);
 
         Auth::login($user);
-        $_SESSION['_flash']['success'] = 'Kayıt başarılı! Hoş geldiniz.';
+        $this->flash('success', 'Kayıt başarılı! Hoş geldiniz.');
         $this->redirect('/posts');
     }
 

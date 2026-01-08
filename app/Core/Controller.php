@@ -6,35 +6,42 @@ namespace App\Core;
 
 abstract class Controller
 {
-    /**
-     * View render et
-     */
+    protected Request $request;
+    protected Response $response;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+        $this->response = new Response();
+    }
+
     protected function view(string $view, array $data = []): void
     {
         View::render($view, $data);
     }
 
-    /**
-     * JSON response
-     */
-    protected function json(mixed $data, int $status = 200): void
+    protected function json(mixed $data, int $status = 200): never
     {
-        (new Response())->json($data, $status);
+        $this->response->json($data, $status);
     }
 
-    /**
-     * Redirect
-     */
     protected function redirect(string $url): never
     {
-        (new Response())->redirect($url);
+        $this->response->redirect($url);
     }
 
-    /**
-     * Önceki sayfaya dön
-     */
     protected function back(): never
     {
-        (new Response())->back();
+        $this->response->back();
+    }
+
+    protected function flash(string $key, mixed $value): void
+    {
+        $_SESSION['_flash'][$key] = $value;
+    }
+
+    protected function old(array $data): void
+    {
+        $_SESSION['_old'] = $data;
     }
 }

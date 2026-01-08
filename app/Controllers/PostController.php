@@ -26,7 +26,7 @@ class PostController extends Controller
         $post = Post::find((int) $id);
 
         if (!$post) {
-            $_SESSION['_flash']['error'] = 'Post bulunamadı.';
+            $this->flash('error', 'Post bulunamadı.');
             $this->redirect('/posts');
         }
 
@@ -45,24 +45,24 @@ class PostController extends Controller
 
     public function store(): void
     {
-        $validator = new Validator($_POST);
+        $validator = new Validator($this->request->all());
 
         if (!$validator->validate([
             'title' => 'required|min:3|max:200',
             'body' => 'required|min:10'
         ])) {
-            $_SESSION['_flash']['errors'] = $validator->errors();
-            $_SESSION['_old'] = $_POST;
+            $this->flash('errors', $validator->errors());
+            $this->old($this->request->all());
             $this->redirect('/posts/create');
         }
 
         Post::create([
-            'title' => $_POST['title'],
-            'body' => $_POST['body'],
+            'title' => $this->request->post('title'),
+            'body' => $this->request->post('body'),
             'user_id' => Auth::id()
         ]);
 
-        $_SESSION['_flash']['success'] = 'Post başarıyla oluşturuldu.';
+        $this->flash('success', 'Post başarıyla oluşturuldu.');
         $this->redirect('/posts');
     }
 
@@ -71,13 +71,12 @@ class PostController extends Controller
         $post = Post::find((int) $id);
 
         if (!$post) {
-            $_SESSION['_flash']['error'] = 'Post bulunamadı.';
+            $this->flash('error', 'Post bulunamadı.');
             $this->redirect('/posts');
         }
 
-        // Yetki kontrolü: Sadece sahibi veya admin
         if (!$this->canEdit($post)) {
-            $_SESSION['_flash']['error'] = 'Bu postu düzenleme yetkiniz yok.';
+            $this->flash('error', 'Bu postu düzenleme yetkiniz yok.');
             $this->redirect('/posts');
         }
 
@@ -92,32 +91,32 @@ class PostController extends Controller
         $post = Post::find((int) $id);
 
         if (!$post) {
-            $_SESSION['_flash']['error'] = 'Post bulunamadı.';
+            $this->flash('error', 'Post bulunamadı.');
             $this->redirect('/posts');
         }
 
         if (!$this->canEdit($post)) {
-            $_SESSION['_flash']['error'] = 'Bu postu düzenleme yetkiniz yok.';
+            $this->flash('error', 'Bu postu düzenleme yetkiniz yok.');
             $this->redirect('/posts');
         }
 
-        $validator = new Validator($_POST);
+        $validator = new Validator($this->request->all());
 
         if (!$validator->validate([
             'title' => 'required|min:3|max:200',
             'body' => 'required|min:10'
         ])) {
-            $_SESSION['_flash']['errors'] = $validator->errors();
-            $_SESSION['_old'] = $_POST;
+            $this->flash('errors', $validator->errors());
+            $this->old($this->request->all());
             $this->redirect('/posts/' . $id . '/edit');
         }
 
         $post->update([
-            'title' => $_POST['title'],
-            'body' => $_POST['body']
+            'title' => $this->request->post('title'),
+            'body' => $this->request->post('body')
         ]);
 
-        $_SESSION['_flash']['success'] = 'Post başarıyla güncellendi.';
+        $this->flash('success', 'Post başarıyla güncellendi.');
         $this->redirect('/posts/' . $id);
     }
 
@@ -126,24 +125,21 @@ class PostController extends Controller
         $post = Post::find((int) $id);
 
         if (!$post) {
-            $_SESSION['_flash']['error'] = 'Post bulunamadı.';
+            $this->flash('error', 'Post bulunamadı.');
             $this->redirect('/posts');
         }
 
         if (!$this->canEdit($post)) {
-            $_SESSION['_flash']['error'] = 'Bu postu silme yetkiniz yok.';
+            $this->flash('error', 'Bu postu silme yetkiniz yok.');
             $this->redirect('/posts');
         }
 
         $post->delete();
 
-        $_SESSION['_flash']['success'] = 'Post başarıyla silindi.';
+        $this->flash('success', 'Post başarıyla silindi.');
         $this->redirect('/posts');
     }
 
-    /**
-     * Düzenleme/silme yetkisi var mı?
-     */
     private function canEdit(Post $post): bool
     {
         return $post->belongsTo(Auth::id()) || Auth::isAdmin();
